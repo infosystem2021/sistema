@@ -8,7 +8,7 @@ if (isset($_GET['codigo'])) {
 	$mensaje=$consultar->eliminarEquipo($arg_codigo);
 	echo $mensaje;
 	echo '<script>alert("registro eliminado")</script> ';
-      echo "<script>location.href='../vista/verequipos.php'</script>";
+      echo "<script>location.href='../vista/equipos.php'</script>";
 }
 
 

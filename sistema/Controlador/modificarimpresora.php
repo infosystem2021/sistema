@@ -47,7 +47,7 @@ $codigo1 = $_POST['codigo1'];
         echo $msj;
 
        echo '<script>alert("impresora modificada")</script> ';
-      echo "<script>location.href='../vista/verimpresoras.php'</script>";
+      echo "<script>location.href='../vista/impresoras.php'</script>";
 
 	}else{
 

@@ -1,9 +1,9 @@
 <?php
-	$mysqli=new mysqli("localhost","root","nuevavictoria","sistema"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+		$user="root";
+		$pass="";
+		$host="localhost";
+		$db="sistema2";
+		$mysqli= new pdo("mysql:host=$host;dbname=$db;",$user,$pass);
 	
-	if(mysqli_connect_errno()){
-		echo 'Conexion Fallida : ', mysqli_connect_error();
-		exit();
-	}
-	$acentos = $mysqli->query("SET NAMES 'utf8'")
+	
 ?>

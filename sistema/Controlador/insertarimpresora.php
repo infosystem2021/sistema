@@ -23,22 +23,24 @@ $salida = $_POST['salida'];
 $observacion = $_POST['observacion'];
 
 
-if (strlen($departamento) > 0 && strlen($tipo) > 0 && strlen($marca) > 0 && strlen($enciende) > 0 && strlen($cable_c) > 0 ) {
+if (strlen($departamento) > 0 && strlen($tipo) > 0 && strlen($marca) > 0 && strlen($enciende) > 0
+  && strlen($cable_c) > 0 && strlen($cable_usb) > 0 && strlen($toner) > 0 && strlen($falla) > 0 && 
+  strlen($traido) > 0 && strlen($recibido) > 0 && strlen($entrada) > 0  ) {
 
 	$consultas = new Consultar();
 	
 	$mensaje = $consultas -> insertarImpresora($departamento, $tipo, $marca, $enciende, $cable_c, $cable_usb, $toner, $falla, $traido, $recibido, $reparado, $entregado, $entrada, $salida, $observacion);
 
+
+   
 }else{
 
 	echo "por favor complete los campos";
 }
-
 echo $mensaje;
 
- echo '<script>alert("impresora Registrado")</script> ';
-      echo "<script>location.href='../vista/verimpresoras.php'</script>";
-
+echo '<script>alert("impresora Registrado")</script> ';
+	 echo "<script>location.href='../vista/verimpresoras.php'</script>";
 
 
 ?>

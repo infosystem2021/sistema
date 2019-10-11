@@ -26,13 +26,13 @@ $b=date("H-m-s");
 	$db_server			= "localhost"; 
 	$db_name				= "sistema"; 
 	$db_username		= "root"; 
-	$db_password		= "nuevavictoria"; 
+	$db_password		= ""; 
 
 
 	//  Acceso al script.
 	
 	$auth_user			= "root";
-	$auth_password 	= "nuevavictoria";
+	$auth_password 	= "";
 
 
 	//  Nombre del archivo.

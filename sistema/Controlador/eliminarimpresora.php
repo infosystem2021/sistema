@@ -8,7 +8,7 @@ if (isset($_GET['codigo'])) {
 	$mensaje=$consultar->eliminarImpresora($arg_codigo);
 	echo $mensaje;
 	echo '<script>alert("registro eliminado")</script> ';
-      echo "<script>location.href='../vista/verimpresoras.php'</script>";
+      echo "<script>location.href='../vista/impresoras.php'</script>";
 }
 
 

@@ -9,58 +9,59 @@ function seleccionar(){
 			foreach ($filas as $fila) {
 				echo '
                <center>
-               <form action="../Controlador/modificarip.php" method="post"> 
+			   <form action="../Controlador/modificarip.php" method="post"> 
+			   
+			   <div class="form-group">
+			   <label for="usr">Ip:</label>
+			   <input type="text"   name="ip" value="'.$fila['ip'].'" class="form-control" id="usr">
+			 </div>
+			 <div class="form-group">
+			   <label for="usr">Departamento:</label>
+			   <input type="text"   name="departamento" value="'.$fila['departamento'].'" class="form-control" id="usr">
+			 </div>
+			 <div class="form-group">
+			 <label for="usr">Equipo:</label>
+			 <input type="text"   name="equipo" value="'.$fila['equipo'].'" class="form-control" id="usr">
+		   </div>
+			 <div class="form-group">
+			 <label for="usr">Sistema:</label>
+			 <select name="sistema"  class="form-control" id="usr"><b>'.$fila['sistema'].'</b>
+						<option value="'.$fila['sistema'].'" ><b>'.$fila['sistema'].'</b></option>
+                        <option>linux mint</option>
+						<option>canaima 5</option>
+						<option>canaima 4</option>
+						<option>debian 8</option>
+						<option>debian 9</option>
+						<option>ubuntu</option>
+						<option>xubuntu</option>
+						<option>windows xp</option>
+						 <option>windows 7</option>
+						<option>windows 8</option>
+						 <option>windows 10</option>  
+					 </select>
+			 </div>
+			 <div class="form-group">
+			 <label for="usr">Siap:</label>
+			 <select name="siap"  class="form-control" id="usr"><b>'.$fila['siap'].'</b>
+						<option value="'.$fila['siap'].'" ><b>'.$fila['siap'].'</b></option>
+						<option>si</option>
+						<option>no</option>
+					 </select>
+			 </div>			   
+			 <div class="form-group">
+			 <label for="usr">Usuario:</label>
+			 <input type="text" name="usuario" value="'.$fila['usuario'].'" class="form-control" id="usr">
+			 </div>
+			 <div class="form-group">
+			 <label for="usr">Clave:</label>
+			 <input type="text" name="clave" value="'.$fila['clave'].'" class="form-control" id="usr">
+			 </div>
+			 <div class="form-group">
+			 <label for="usr">Clave root:</label>
+			 <input type="text" name="observacion" value="'.$fila['observacion'].'" class="form-control" id="usr">
+			 </div>
 
                  <table>
-				<tr>
-					<td><span class="label label-info">IP: </span></td>
-					<td><input type="text" pattern="[0-9_.]{1,13}"  name="ip" value="'.$fila['ip'].'"></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Departamento: </span></td>
-					<td><input type="text" name="departamento" value="'.$fila['departamento'].'"></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Equipo:</span> </td>
-					<td><input type="text" name="equipo" value="'.$fila['equipo'].'"></td>			
-                      
-				</tr>
-				<tr>
-					<td><span class="label label-info">Sistema:</span> &nbsp;</td>
-					<td>					 <select name="sistema">
-                          <option value="'.$fila['sistema'].'" ><b>'.$fila['sistema'].'</b></option>
-                          <option>canaima 5</option>
-                          <option>canaima 4</option>
-                          <option>debian 8</option>
-                          <option>debian 9</option>
-                          <option>ubuntu</option>
-                          <option>xubuntu</option>
-                          <option>windows xp</option>
-                           <option>windows 7</option>
-                          <option>windows 8</option>
-                           <option>windows 10</option>
-                         
-                       </select></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Siap: </span></td>
-					<td>					 <select name="siap">
-                          <option value="'.$fila['siap'].'" ><b>'.$fila['siap'].'</b></option>
-                          <option>si</option>
-                          <option>no</option>
-                       </select></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Usuario: </span></td>
-					<td><input type="text" name="usuario" value="'.$fila['usuario'].'"></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Clave:</span></td>
-					<td><input type="text" name="clave" value="'.$fila['clave'].'"></td>
-				</tr>
-				<tr><td><span class="label label-info">Observacion:</span></td>
-				    <td><textarea name="observacion" rows="5" cols="50">'.$fila['observacion'].'</textarea></td>
-				</tr>
 				<tr>
 					<td>&nbsp;</td>
 					<td><input type="hidden" name="codigo1" value="'.$codigo.'"></td>
@@ -68,7 +69,7 @@ function seleccionar(){
 				<tr>
 					<td>&nbsp;</td>
 					<td><input class="btn btn-success" type="submit" value="Modificar IP">
-					<a href="verips.php" class="btn btn-success"</a>volver</td>
+					<a href="ips.php" class="btn btn-danger"</a>volver</td>
 				</tr>
 		</table>
                    

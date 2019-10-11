@@ -2,15 +2,15 @@
 class Consultar{
 
 //bloque de usuarios
-    public function insertarUsuario($arg_user, $arg_passadmin, $arg_pass){
+    public function insertarUsuario($arg_users, $arg_passadmin, $arg_pass){
      $modelo= new Conexion();
      $conexion=$modelo->get_conexion();
-     $sql= "insert into login (user, passadmin, pass) values (:user, :passadmin, :pass)";
+     $sql= "insert into login (id, users, passadmin, pass) values (default, :users, :passadmin, :pass)";
      $statement=$conexion->prepare($sql);
-     $statement->bindParam(':user', $arg_user);
+     $statement->bindParam(':users', $arg_users);
      $statement->bindParam(':passadmin', $arg_passadmin);
      $statement->bindParam(':pass', $arg_pass);
-    
+
      if (!$statement) {
       return "error al crear registro";
 
@@ -32,7 +32,7 @@ class Consultar{
     $statement=$conexion->prepare($sql);
     $statement->execute();
     while ($result=$statement->fetch()) {
-      
+
       $rows[]=$result;
     }
 
@@ -296,6 +296,229 @@ public function modificarIp($arg_campo, $arg_valor, $arg_codigo){
     return $rows;
 }
 
+//bloque de repositorios
+
+ public function insertarRepositorios($arg_nombre, $arg_repositorios){
+     $modelo= new Conexion();
+     $conexion=$modelo->get_conexion();
+     $sql= "insert into reporte (fecha, reporte) values (:nombre, :repositorios)";
+     $statement=$conexion->prepare($sql);
+     $statement->bindParam(':nombre', $arg_nombre);
+     $statement->bindParam(':repositorios', $arg_repositorios);
+
+     if (!$statement) {
+      return "error al crear registro";
+
+     }
+     else
+
+      {
+         $statement->execute();
+
+      return "registro creado correctamente";
+       }
+  }
+
+    public function cargarRepositorios(){
+    $rows=null;
+    $modelo = new Conexion();
+    $conexion=$modelo->get_conexion();
+    $sql="select * from reporte ORDER BY fecha DESC";
+    $statement=$conexion->prepare($sql);
+    $statement->execute();
+    while ($result=$statement->fetch()) {
+      
+      $rows[]=$result;
+    }
+
+    return $rows;
+  }
+
+  public function buscarRepositorio1($arg_codigo){
+
+  $rows=null;
+    $modelo = new Conexion();
+    $conexion=$modelo->get_conexion();
+    $codigo="%".$arg_codigo."%";
+    $sql="select * from reporte where fecha like :codigo";
+    $statement=$conexion->prepare($sql);
+    $statement->bindParam(":codigo",$codigo);
+    $statement->execute();
+    while ($result=$statement->fetch()) {
+      
+      $rows[]=$result;
+    }
+
+    return $rows;
+}
+
+
+public function cargarrepositorio($arg_codigo){
+  $rows=null;
+    $modelo = new Conexion();
+    $conexion=$modelo->get_conexion();
+    $sql="select * from reporte where fecha = :codigo";
+    $statement=$conexion->prepare($sql);
+    $statement->bindParam(":codigo", $arg_codigo);
+    $statement->execute();
+    while ($result=$statement->fetch()) {
+      
+      $rows[]=$result;
+    }
+
+    return $rows;
+
+}
+
+public function modificarRepositorio($arg_campo, $arg_valor, $arg_codigo){
+ $modelo = new Conexion();
+    $conexion=$modelo->get_conexion();
+    $sql="update reporte set $arg_campo = :valor where fecha = :codigo";
+    $statement=$conexion->prepare($sql);
+    $statement->bindParam(":valor", $arg_valor);
+    $statement->bindParam(":codigo", $arg_codigo);
+    if (!$statement) {
+
+        return "error al modificar registro ";
+
+      }else{
+
+        $statement->execute();
+        return "registro modificado correctamente";
+    }
+
+}
+
+ public function eliminarRepositorio($arg_codigo){
+
+          $modelo = new Conexion();
+          $conexion=$modelo->get_conexion();
+          $sql="delete from reporte where fecha = :codigo";
+          $statement=$conexion->prepare($sql);
+          $statement->bindParam(':codigo', $arg_codigo);
+   if(!$statement) {
+      return "error al eliminar registro";
+     } else {
+
+             $statement->execute();
+            return "registro eliminado correctamente" ;
+         }
+
+ }
+ //bloque de repositorios
+
+ //bloque de fallas
+
+ public function insertarFallas($arg_nombre, $arg_repositorios){
+  $modelo= new Conexion();
+  $conexion=$modelo->get_conexion();
+  $sql= "insert into falllas (falla, solucion) values (:nombre, :repositorios)";
+  $statement=$conexion->prepare($sql);
+  $statement->bindParam(':nombre', $arg_nombre);
+  $statement->bindParam(':repositorios', $arg_repositorios);
+
+  if (!$statement) {
+   return "error al crear registro";
+
+  }
+  else
+
+   {
+      $statement->execute();
+
+   return "registro creado correctamente";
+    }
+}
+
+ public function cargarFallas(){
+ $rows=null;
+ $modelo = new Conexion();
+ $conexion=$modelo->get_conexion();
+ $sql="select * from falllas ORDER BY falla DESC";
+ $statement=$conexion->prepare($sql);
+ $statement->execute();
+ while ($result=$statement->fetch()) {
+   
+   $rows[]=$result;
+ }
+
+ return $rows;
+}
+
+public function buscarFalla1($arg_codigo){
+
+$rows=null;
+ $modelo = new Conexion();
+ $conexion=$modelo->get_conexion();
+ $codigo="%".$arg_codigo."%";
+ $sql="select * from falllas where falla like :codigo";
+ $statement=$conexion->prepare($sql);
+ $statement->bindParam(":codigo",$codigo);
+ $statement->execute();
+ while ($result=$statement->fetch()) {
+   
+   $rows[]=$result;
+ }
+
+ return $rows;
+}
+
+
+public function cargarFalla($arg_codigo){
+$rows=null;
+ $modelo = new Conexion();
+ $conexion=$modelo->get_conexion();
+ $sql="select * from falllas where falla = :codigo";
+ $statement=$conexion->prepare($sql);
+ $statement->bindParam(":codigo", $arg_codigo);
+ $statement->execute();
+ while ($result=$statement->fetch()) {
+   
+   $rows[]=$result;
+ }
+
+ return $rows;
+
+}
+
+public function modificarFalla($arg_campo, $arg_valor, $arg_codigo){
+$modelo = new Conexion();
+ $conexion=$modelo->get_conexion();
+ $sql="update falllas set $arg_campo = :valor where falla = :codigo";
+ $statement=$conexion->prepare($sql);
+ $statement->bindParam(":valor", $arg_valor);
+ $statement->bindParam(":codigo", $arg_codigo);
+ if (!$statement) {
+
+     return "error al modificar registro ";
+
+   }else{
+
+     $statement->execute();
+     return "registro modificado correctamente";
+ }
+
+
+}
+
+public function eliminarFalla($arg_codigo){
+
+       $modelo = new Conexion();
+       $conexion=$modelo->get_conexion();
+       $sql="delete from falllas where falla = :codigo";
+       $statement=$conexion->prepare($sql);
+       $statement->bindParam(':codigo', $arg_codigo);
+if(!$statement) {
+   return "error al eliminar registro";
+  } else {
+
+          $statement->execute();
+         return "registro eliminado correctamente" ;     
+      }
+
+}
+
+ //bloque de fallas
 
  //bloque de equipos
 	public function insertarEquipo($arg_departamento, $arg_tipo, $arg_sistema, $arg_siap, $arg_falla, $arg_traido, $arg_recibido, $arg_reparado, $arg_entregado, $arg_entrada, $arg_salida, $arg_observacion){

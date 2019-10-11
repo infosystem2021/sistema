@@ -5,7 +5,7 @@ require_once("../Modelo/class.consultar.php");
 
 $mensaje = null;
 
-$codigo = $_POST['codigo'];
+
 $departamento = $_POST['departamento'];
 $tipo = $_POST['tipo'];
 $sistema = $_POST['sistema'];

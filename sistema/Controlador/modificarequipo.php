@@ -41,7 +41,7 @@ $codigo1 = $_POST['codigo1'];
         echo $msj;
 
        echo '<script>alert("equipo modificado")</script> ';
-      echo "<script>location.href='../vista/verequipos.php'</script>";
+      echo "<script>location.href='../vista/equipos.php'</script>";
 
 	}else{
 

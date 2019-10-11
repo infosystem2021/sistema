@@ -45,7 +45,7 @@ $codigo1 = $_POST['codigo1'];
         echo $msj;
 
        echo '<script>alert("monitor modificado")</script> ';
-      echo "<script>location.href='../vista/vermonitores.php'</script>";
+      echo "<script>location.href='../vista/monitores.php'</script>";
 
 	}else{
 

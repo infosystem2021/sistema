@@ -1,86 +1,82 @@
 <?php
-
-session_start();
-if (!$_SESSION["user"]) {
-	header("location:../index.php");
-}
-?>
-	
+	session_start();
+	if (!$_SESSION['users']) {
+		header("Location:../index.html");
+	}
+  ?>
 <?php
-
 require_once("../Modelo/class.conexion.php");
 require_once("../Modelo/class.consultar.php");
 require_once("../Controlador/cargarimpresoras.php");
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	  <meta charset="utf-8">
-   <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="../bootstrap/js/jquery-1.8.3.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../estilo.css">
+    <link rel="stylesheet" type="text/css" href="../estilos2.css">
 
-
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-  <title>informatica</title>
+<style type="text/css">
+  .boton_personalizado{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+  }
+  .boton_personalizado:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+  }
+</style>
+    <title>INFORMATICA</title>
 </head>
-<body style="background-color:#FFF">
+<body>
+      <div class="contenedor">
 
-  <div class="container">
+        <header class="header">
+    <?php
+                                         include("../include/menu5.php");
+                                      ?>
 
-		 <header class="header">
+                <a href="#" class="imagen">
+                      <IMG src="../images/alcaldia1.png" width="130" height="76"  />
+                </a>
+                <h1 class="hidden-xs">JEFATURA DE INFORMATICA</h1>
+
+        </header>
+
+      <main class="contenido">
+
+      <form method="get">
+
+
+     <iframe src="./impresoras.php" name="iframe_a" width="100%" height="600"></iframe>
            
-              <?php
-                     include("../include/cabecera.php");
-                 ?>
-          
-      </header>
 
-       <?php
-//  include("../include/carrusel.php");
-              ?>
+      </main>
+      <!--<aside class="sidebar">
+      <IMG src="../images/escudo.png" width="130" height="76"  />
+      </aside>-->
+      <div class="wridget-1">
+      <h3 style="text-align:center">GNU</h3>
 
-              <?php
-                        include("../include/menu5.php");
-                    ?>
-                    
-<br><br> <h1>IMPRESORAS REGISTRADAS</h1> 
-
-	<div>
-
-		<form method="get">
-           
-           <input type="text" name="buscar" placeholder="INGRESE EL CODIGO:">
-           <input class="btn btn-danger" type="submit" value="BUSCAR">
-           <a class="btn btn-info" href="verimpresoras.php">TODAS</a>
-		</form>
-		
-	</div>
-    <div>
-<a class="btn btn-success" href="../pdf/consultarimpresoras.php">generar reporte</a>
+      </div>
+      <div class="wridget-2">
+      <h3 style="text-align:center">LINUX</h3>
+      </div>
+    <footer  class="footer">
+    <p style="color: red">&copy; Copyright INFOSYSTEM  <IMG src="../images/escudo.png" width="130" height="76" align="right" /> <br/><br/></p>
+    </footer>
 </div>
-<br>
-
-	<?php
-
-	if (isset($_GET['buscar'])) {
-	    buscar($_GET['buscar']);
-	}else{
-
-		cargar();
-	}
-	
-	?>
-
-
-
-
-</div>
+<script src="reloj.js"></script>
 </body>
 </html>

@@ -1,17 +1,12 @@
-
 <?php
-
-
-session_start();
 	require("Modelo/class.conexion.php");
-
 	$username=$_POST['user'];
 	$pass1=$_POST['pass'];
   $pass=sha1(md5($pass1));
 
     $modelo = new Conexion();
     $conexion=$modelo->get_conexion();
-    $sql="select * from login where user = :user and passadmin = :pass";
+    $sql="select * from login where users = :user and passadmin = :pass";
     $statement=$conexion->prepare($sql);
     $statement->bindParam(":user", $username);
     $statement->bindParam(":pass", $pass);
@@ -21,10 +16,10 @@ session_start();
 
    if (count($result)) {
     	session_start();
-      $_SESSION['user']=$username;
+      $_SESSION['users']=$username;
       $_SESSION['pass']=$pass;
 
-      echo '<script>alert("bienvenido '.$username.'")</script> ';
+     // echo '<script>alert("bienvenido '.$username.'")</script> ';
       echo "<script>location.href='vista/inicio.php'</script>";
 
 
@@ -38,7 +33,7 @@ session_start();
 
         $modelo = new Conexion();
     $conexion=$modelo->get_conexion();
-    $sql="select * from login where user = :user and pass = :pass";
+    $sql="select * from login where users = :user and pass = :pass";
     $statement=$conexion->prepare($sql);
     $statement->bindParam(":user", $username);
     $statement->bindParam(":pass", $pass);
@@ -48,7 +43,7 @@ session_start();
 
    if (count($result)) {
       session_start();
-      $_SESSION['user']=$username;
+      $_SESSION['users']=$username;
       $_SESSION['pass']=$pass;
 
       echo '<script>alert("BIENVENIDO USUARIO")</script> ';
@@ -59,7 +54,7 @@ session_start();
 
 
        echo '<script>alert("usuario no encontrado")</script> ';
-       echo "<script>location.href='index.php'</script>";
+       echo "<script>location.href='index.html'</script>";
       
       }
 

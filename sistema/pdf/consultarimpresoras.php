@@ -1,7 +1,23 @@
 <?php 
-	require_once('conexion/conexion.php');	
-	$usuario = 'SELECT * FROM impresoras ORDER BY codigo ASC';	
-	$usuarios=$mysqli->query($usuario);
+  require_once('../Modelo/class.conexion.php');	
+  class pdf{
+  public function cargarImpresoras(){
+  	$rows=null;
+  	$modelo = new Conexion();
+  	$conexion=$modelo->get_conexion();
+  	$sql="select * from impresoras";
+  	$statement=$conexion->prepare($sql);
+  	$statement->execute();
+  	while ($result=$statement->fetch()) {
+  		
+  		$rows[]=$result;
+  	}
+
+  	return $rows;
+  }
+}
+
+ //	$usuarios=$mysqli->query($usuario);
 	
 if(isset($_POST['create_pdf'])){
 	require_once('tcpdf/tcpdf.php');
@@ -9,39 +25,46 @@ if(isset($_POST['create_pdf'])){
 	$pdf = new TCPDF('P', 'mm', 'LETTER', true, 'UTF-8', false);
 	
 	$pdf->SetCreator(PDF_CREATOR);
-	$pdf->SetAuthor('Miguel Caro');
+	$pdf->SetAuthor('Cesar Ratia');
 	$pdf->SetTitle($_POST['reporte_name']);
 	
-	$pdf->setPrintHeader(false); 
-	$pdf->setPrintFooter(false);
+	$pdf->setPrintHeader(true); 
+	$pdf->setPrintFooter(true);
 	$pdf->SetMargins(5, 5, 5, false); 
 	$pdf->SetAutoPageBreak(true, 20); 
 	$pdf->SetFont('Helvetica', '', 10);
-	$pdf->addPage('L');
+  $pdf->addPage('L');
+  
+  $consultar= new pdf();
+  $filas = $consultar->cargarImpresoras();
+  
+  if (isset($filas)) {
+   
 
 	$content = '';
 
-  $content .= '
-    <div class="row">
+  $content .= '<header><img src="alcaldia.png" width="800" height="60" alt="" ></header>
+    <div class="row"> 
           <div class="col-md-12">
               <h1 style="text-align:center;">'.$_POST['reporte_name'].'</h1>
-        
+
+      
       <table border="1" cellpadding="5" bgcolor="">
         <thead >
-          <tr bgcolor="#a2a5aa">
+          <tr  bgcolor="#a2a5aa">
            
             <th WIDTH="30" HEIGHT="20"><B>Cod</B></th>
             <th HEIGHT="20"><B>Dep</B></th>
             <th HEIGHT="20"><B>Tipo</B></th>
             <th HEIGHT="20"><B>Marca</B></th>
-            <th HEIGHT="20"><B>Eciende</B></th>
-            <th HEIGHT="20"><B>Cable</B></th>
-            <th HEIGHT="20"><B>Usb</B></th>
+            <th WIDTH="40" HEIGHT="20"><B>Enciende</B></th>
             <th HEIGHT="20"><B>Falla</B></th>
             <th HEIGHT="20"><B>Traido</B></th>
             <th HEIGHT="20"><B>Recibido</B></th>
             <th HEIGHT="20"><B>Reparado</B></th>
             <th WIDTH="60" HEIGHT="20"><B>Entregado</B></th>
+            <th HEIGHT="20"><B>Entrada</B></th>
+            <th HEIGHT="20"><B>Salida</B></th>
             <th WIDTH="90" HEIGHT="20"><B>Observacion</B></th>
 
           </tr>
@@ -49,7 +72,8 @@ if(isset($_POST['create_pdf'])){
   ';
   
   
-  while ($user=$usuarios->fetch_assoc()) { 
+  foreach ($filas as $user) { 
+   //print_r($user ); 
   $content .= '
     <tr bgcolor="">
            
@@ -57,14 +81,14 @@ if(isset($_POST['create_pdf'])){
             <td>'.$user['departamento'].'</td>
             <td>'.$user['tipo'].'</td>
             <td>'.$user['marca'].'</td>
-            <td>'.$user['enciende'].'</td>
-            <td>'.$user['cable_c'].'</td>
-            <td>'.$user['cable_usb'].'</td>
+            <td WIDTH="40">'.$user['enciende'].'</td>
             <td>'.$user['falla'].'</td>
             <td>'.$user['traido'].'</td>
             <td>'.$user['recibido'].'</td>
             <td>'.$user['reparado'].'</td>
             <td WIDTH="60">'.$user['entregado'].'</td>
+            <td>'.$user['entrada'].'</td>
+            <td>'.$user['salida'].'</td>
             <td WIDTH="90">'.$user['observacion'].'</td>
         </tr>
 
@@ -73,17 +97,12 @@ if(isset($_POST['create_pdf'])){
   }
   
   $content .= '</table>';
-  
- 
 
-
-	
-	
-	
 	$pdf->writeHTML($content, true, 0, true, 0);
 
 	$pdf->lastPage();
-	$pdf->output('Reporte.pdf', 'I');
+  $pdf->output('ReporteImpresoras.pdf', 'I');
+}
 }
 
 ?>
@@ -106,16 +125,20 @@ if(isset($_POST['create_pdf'])){
 </head>
 
 <body>
-	<div class="container-fluid">
-        <div class="row padding">
-        	<div class="col-md-12">
-            	<?php $h1 = "Datos de las Impresoras en pdf";  
+
+             <header><img src="alcaldia.png" width="100%" height="80" alt="" ></header>
+            	<?php $h1 = "Datos de las impresoras en pdf";  
             	 echo '<h1>'.$h1.'</h1>'
 				?>
-            </div>
- 
-              <div class="row">
-      <table class="table table-hover" style="text-align:center;">
+
+                <form method="post">
+                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
+                  <a href="../vista/impresoras.php" class="btn btn-danger" > Volver</a>
+                  <input type="submit" name="create_pdf" class="btn btn-success" value="Generar PDF">
+                </form>
+                <br>
+             
+      <table border="2" style="text-align:center;">
         <thead>
           <tr>
            
@@ -124,9 +147,6 @@ if(isset($_POST['create_pdf'])){
             <th><center>Tipo</center></th>
             <th><center>Marca</center></th>
             <th><center>Enciende</center></th>
-            <th><center>Cable Corriente</center></th>
-            <th><center>Cable usb</center></th>
-            <th><center>Toner</center></th>
             <th><center>Falla</center></th>
             <th><center>Traido por</center></th>
             <th><center>Recibido</center></th>
@@ -139,7 +159,12 @@ if(isset($_POST['create_pdf'])){
         </thead>
         <tbody>
         <?php 
-      while ($user=$usuarios->fetch_assoc()) {   ?>
+        $consultar= new pdf();
+        $filas = $consultar->cargarImpresoras();
+         if (isset($filas)) {
+         
+       foreach ($filas as $user) {   ?>
+       
           <tr class="">
             
             <td WIDTH="5"><?php echo $user['codigo']; ?></td>
@@ -147,9 +172,6 @@ if(isset($_POST['create_pdf'])){
             <td><?php echo $user['tipo']; ?></td>
             <td><?php echo $user['marca']; ?></td>
             <td><?php echo $user['enciende']; ?></td>
-            <td><?php echo $user['cable_c']; ?></td>
-            <td><?php echo $user['cable_usb']; ?></td>
-            <td><?php echo $user['toner']; ?></td>
             <td><?php echo $user['falla']; ?></td>
             <td><?php echo $user['traido']; ?></td>
             <td><?php echo $user['recibido']; ?></td>
@@ -160,21 +182,9 @@ if(isset($_POST['create_pdf'])){
             <td><?php echo $user['observacion']; ?></td>
             
           </tr>
-         <?php } ?>
+         <?php  } }?>
         </tbody>
       </table>
-
-      
-    
-              <div class="col-md-12">
-                <form method="post">
-                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
-                  <a href="../vista/verimpresoras.php" class="btn btn-danger pull-left" > Volver</a>
-                  <input type="submit" name="create_pdf" class="btn btn-danger pull-right" value="Generar PDF">
-                </form>
-              </div>
-        </div>
-    </div>
 
 </body>
 </html>

@@ -10,31 +10,25 @@ function seleccionarUsuario(){
 				echo '
                
                <form action="../Controlador/modificarusuario.php" method="post"> 
-
-                 <table>
 				
-				<tr>
-					<td><span class="label label-info">Usuario: </span></td>
-					<td><input type="text" name="user" value="'.$fila['user'].'"></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Contraseña A: </span>&nbsp;</td>
-					<td><input type="text" name="passadmin" value=""></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info">Contraseña B: </span>&nbsp;</td>
-					<td><input type="text" name="pass" value=""></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input type="hidden" name="id" value="'.$id.'"></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input type="submit" class="btn btn-success" value="Modificar usuario"></td>
-				</tr>
-		</table>
-                   
+				 <div class="form-group">
+			     <label for="usr">USUARIO:</label>
+			     <input type="text"   name="user"  class="form-control" id="usr" value="'.$fila['users'].'"required>
+         </div>
+         <div class="form-group">
+			     <label for="usr">CONTRASEÑA A:</label>
+			     <input type="password"   name="passadmin"  class="form-control" id="usr" placeholder="ingrese la contraseña" required>
+         </div>
+         <div class="form-group">
+			     <label for="usr">CONTRASEÑA B:</label>
+			     <input type="password"   name="pass"  class="form-control" id="usr" placeholder="ingrese la contraseña" required>
+         </div>
+
+
+				<input type="hidden" name="id" value="'.$id.'">
+			
+			<input type="submit" class="btn btn-success" value="Modificar usuario">
+	
     
                 </form>
 

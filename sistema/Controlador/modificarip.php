@@ -18,7 +18,7 @@ $observacion = $_POST['observacion'];
 $codigo1 = $_POST['ip'];
 	
 
-	if (strlen($ip) > 0 && strlen($departamento) > 0 && strlen($equipo) > 0 && strlen($sistema) > 0 && strlen($siap) > 0 && strlen($usuario) > 0 && strlen($clave) > 0 ) {
+	if (strlen($ip) > 0 ) {
 		
 		$msj = $consultas -> modificarIp('ip', $ip, $codigo1);
 		$msj = $consultas -> modificarIp('departamento', $departamento, $codigo1);
@@ -31,7 +31,7 @@ $codigo1 = $_POST['ip'];
         echo $msj;
 
        echo '<script>alert("IP modificado")</script> ';
-      echo "<script>location.href='../vista/verips.php'</script>";
+      echo "<script>location.href='../vista/ips.php'</script>";
 
 	}else{
 

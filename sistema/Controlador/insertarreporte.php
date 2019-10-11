@@ -23,7 +23,7 @@ if (strlen($fecha) > 0 && strlen($reporte) > 0) {
 echo $mensaje;
 
  echo '<script>alert("reporte guardado")</script> ';
-      echo "<script>location.href='../vista/insertarreporte.php'</script>";
+      echo "<script>location.href='../vista/verreportes.php'</script>";
 
 
 

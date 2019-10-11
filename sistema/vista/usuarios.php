@@ -1,89 +1,112 @@
 <?php
-
-session_start();
-if (!$_SESSION["user"]) {
-	header("location:index.php");
-}
-?>
-
+	session_start();
+	if (!$_SESSION['users']) {
+		header("Location:../index.html");
+	}		
+  ?> 	
 <?php
-
 require_once("../Modelo/class.conexion.php");
 require_once("../Modelo/class.consultar.php");
 require_once("../Controlador/usuariosregistrados.php");
 ?>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="es">
 <head>
-	  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="../bootstrap/js/jquery-1.8.3.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css">
 
-
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-  <title>informatica</title>
+    <link rel="stylesheet" href="../estilo.css">
+    <link rel="stylesheet" type="text/css" href="../estilos2.css">
+ 
+<style type="text/css">
+  .boton_personalizado{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+  }
+  .boton_personalizado:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+  }
+</style>
+    <title>INFORMATICA</title>
 </head>
-<body style="background-color:#FFF">
-	<div class="container">
+<body>
+      <div class="contenedor">
 
-	 <header class="header">
-          
+        <header class="header">
               <?php
-                     include("../include/cabecera.php");
-                 ?>
-        
-      </header>
+                                         include("../include/menu5.php");
+                                      ?>
+                <a href="#" class="imagen">
+                      <IMG src="../images/alcaldia1.png" width="130" height="76"  />
+                </a> 
+                  <h1 class="hidden-xs">JEFATURA DE INFORMATICA</h1>
+                                 
+        </header>
 
-
-              <?php
-                        include("../include/menu5.php");
-                    ?>
                     
+                
+     
+      <main class="contenido">
+      
+	
+      <form action="../Controlador/controlusuarios.php" method="post" accept-charset="utf-8">
+    <h2 style="text-align: center;">REGISTRAR USUARIO</h2>
+    
+    <div class="form-group">
+			     <label for="usr">USUARIO:</label>
+			     <input type="text"   name="user"  class="form-control" id="usr" placeholder="ingrese el usuario" required>
+         </div>
+         <div class="form-group">
+			     <label for="usr">CONTRASEÑA A:</label>
+			     <input type="password"   name="passadmin"  class="form-control" id="usr" placeholder="ingrese la contraseña" required>
+         </div>
+         <div class="form-group">
+			     <label for="usr">CONTRASEÑA B:</label>
+			     <input type="password"   name="pass"  class="form-control" id="usr" placeholder="ingrese la contraseña" required>
+         </div>
 
 
-	<div class ="container">
-		
+					
+			<input class="btn btn-success" type="submit" value="Registrar Usuario">
 
 
-	<form action="../Controlador/controlusuarios.php" method="post" accept-charset="utf-8">
-		<br><br><h2>REGISTRAR USUARIO</h2>
-		<table border="0" align ="center" valign="middle">
-				<tr>
-					<td><span class="label label-info" style="font-size: 14pt ">USUARIO:</span></td>
-					<td><input type="text" name="user"></td>
-				</tr>
-					<tr>
-					<td><span class="label label-info" style="font-size: 14pt ">CONTRASEÑA A:</span></td>
-					<td><input type="password" name="passadmin"></td>
-				</tr>
-				<tr>
-					<td><span class="label label-info" style="font-size: 14pt ">CONTRASEÑA B:</span></td>
-					<td><input type="password" name="pass"></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input class="btn btn-success" type="submit" value="Registrar Usuario"></td>
-				</tr>
-		</table>
-		<br>
-		<center><h2>USUARIOS REGISTRADOS</h2></center>
 
-<?php
+
+		<h2 style="text-align: center;">USUARIOS REGISTRADOS</h2>
+
+        <?php
 
 usuarios();
 
 ?>
 	
 	</form>
-	</div>
+      </main>
+      <!--<aside class="sidebar">
+      <IMG src="../images/escudo.png" width="130" height="76"  />
+      </aside>-->
+      <div class="wridget-1">
+      <h3 style="text-align:center">GNU</h3>	
+	                 
+      </div>
+      <div class="wridget-2">
+      <h3 style="text-align:center">LINUX</h3>
+      </div>
+    <footer  class="footer">
+    <p style="color: red">&copy; Copyright INFOSYSTEM  <IMG src="../images/escudo.png" width="130" height="76" align="right" /> <br/><br/></p>
+    </footer>
 </div>
+<script src="reloj.js"></script>
 </body>
 </html>

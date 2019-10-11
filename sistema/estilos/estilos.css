@@ -31,6 +31,8 @@ ul, ol{
 .nav > li{
 		float: left;
 
+
+
 	}
 
 .nav li ul{
@@ -44,13 +46,15 @@ ul, ol{
 
 		background-color:#434343;
 
+
 	}
 	.nav li:hover > ul{
 		display: block;
 
 
+
 	}
-.nav ul:hover{
+.nav ul:hover {
 		
 background-color:#434343;
 

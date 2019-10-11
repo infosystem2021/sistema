@@ -8,7 +8,7 @@ if (isset($_GET['codigo'])) {
 	$mensaje=$consultar->eliminarMonitor($arg_codigo);
 	echo $mensaje;
 	echo '<script>alert("registro eliminado")</script> ';
-      echo "<script>location.href='../vista/vermonitores.php'</script>";
+      echo "<script>location.href='../vista/monitores.php'</script>";
 }
 
 

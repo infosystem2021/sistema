@@ -8,7 +8,7 @@ if (isset($_GET['codigo'])) {
 	$mensaje=$consultar->eliminarIp($arg_codigo);
 	echo $mensaje;
 	echo '<script>alert("registro eliminado")</script> ';
-      echo "<script>location.href='../vista/verips.php'</script>";
+      echo "<script>location.href='../vista/ips.php'</script>";
 }
 
 

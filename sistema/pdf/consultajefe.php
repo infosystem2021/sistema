@@ -1,6 +1,7 @@
 <?php 
-	require_once('conexion/conexion.php');	
-	$usuario = 'SELECT * FROM jefes_familia ORDER BY cedula ASC';	
+  require_once('conexion/conexion.php');	
+  $usuario="select * from jefes_familia";
+	//$usuario = 'SELECT * FROM jefes_familia ORDER BY cedula ASC';	
 	$usuarios=$mysqli->query($usuario);
 	
 if(isset($_POST['create_pdf'])){

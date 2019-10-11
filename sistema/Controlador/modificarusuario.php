@@ -18,7 +18,7 @@ $consultas = new Consultar();
 	if (strlen($id)>0) {
 		
 		
-		$msj = $consultas -> modificarUsuario('user', $user, $id);
+		$msj = $consultas -> modificarUsuario('users', $user, $id);
         $msj = $consultas -> modificarUsuario('passadmin', $passadmin, $id);
         $msj = $consultas -> modificarUsuario('pass', $pass2, $id);
         

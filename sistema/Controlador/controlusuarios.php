@@ -12,10 +12,10 @@ $pass2 = $_POST['pass'];
 if (strlen($user) > 0) {
 
 	$consultas = new Consultar();
-	
+
 	        $password=sha1(md5($pass1));
 	        $pass=sha1(md5($pass2));
-			
+
 	$mensaje = $consultas -> insertarUsuario($user, $password, $pass);
 
 }else{

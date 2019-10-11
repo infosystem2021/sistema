@@ -1,7 +1,6 @@
 <?php
-
 session_start();
-if (!$_SESSION["user"]) {
+if (!$_SESSION["users"]) {
 	header("location:index.php");
 }
 ?>

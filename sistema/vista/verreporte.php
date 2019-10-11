@@ -1,13 +1,10 @@
 <?php
-
 session_start();
-if (!$_SESSION["user"]) {
+if (!$_SESSION["users"]) {
 	header("location:../index.php");
 }
-?>
-	
+?>	
 <?php
-
 require_once("../Modelo/class.conexion.php");
 require_once("../Modelo/class.consultar.php");
 require_once("../Controlador/cargarreporte.php");

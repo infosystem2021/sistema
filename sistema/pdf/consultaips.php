@@ -1,8 +1,21 @@
 <?php 
-	require_once('conexion/conexion.php');	
-	$usuario = 'SELECT * FROM ip ORDER BY ip ASC';	
-	$usuarios=$mysqli->query($usuario);
-	
+  require_once('../Modelo/class.conexion.php');	
+  class pdf{
+  public function cargarEquipos(){
+  	$rows=null;
+  	$modelo = new Conexion();
+  	$conexion=$modelo->get_conexion();
+  	$sql="select * from ip";
+  	$statement=$conexion->prepare($sql);
+  	$statement->execute();
+  	while ($result=$statement->fetch()) {
+  		
+  		$rows[]=$result;
+  	}
+
+  	return $rows;
+  }
+}
 if(isset($_POST['create_pdf'])){
 	require_once('tcpdf/tcpdf.php');
 	
@@ -17,7 +30,13 @@ if(isset($_POST['create_pdf'])){
 	$pdf->SetMargins(5, 5, 5, false); 
 	$pdf->SetAutoPageBreak(true, 20); 
 	$pdf->SetFont('Helvetica', '', 10);
-	$pdf->addPage('L');
+  $pdf->addPage('L');
+  $consultar= new pdf();
+  $filas = $consultar->cargarEquipos();
+  
+  if (isset($filas)) {
+   
+
 
 	$content = '';
 
@@ -38,14 +57,14 @@ if(isset($_POST['create_pdf'])){
             <th HEIGHT="20"><B>Usuario</B></th>
             <th HEIGHT="20"><B>Clave</B></th>
 
-            <th WIDTH="90" HEIGHT="20"><B>Observacion</B></th>
+            <th WIDTH="90" HEIGHT="20"><B>Clave ROOT</B></th>
 
           </tr>
         </thead>
   ';
   
   
-  while ($user=$usuarios->fetch_assoc()) { 
+  foreach ($filas as $user) { 
   $content .= '
     <tr bgcolor="">
            
@@ -77,7 +96,7 @@ if(isset($_POST['create_pdf'])){
 	$pdf->lastPage();
 	$pdf->output('Reporte.pdf', 'I');
 }
-
+}
 ?>
 		 
           
@@ -99,6 +118,7 @@ if(isset($_POST['create_pdf'])){
 
 <body>
 	<div class="container-fluid">
+  <header><img src="alcaldia.png" width="100%" height="60" alt="" ></header>
         <div class="row padding">
         	<div class="col-md-12">
             	<?php $h1 = "Datos de los equipos con IP";  
@@ -107,7 +127,14 @@ if(isset($_POST['create_pdf'])){
             </div>
  
               <div class="row">
-                <header><img src="alcaldia.png" width="800" height="60" alt="" ></header>
+            
+                <div class="col-md-12">
+                <form method="post">
+                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
+                  <a href="../vista/ips.php" class="btn btn-danger" > Volver</a>
+                  <input type="submit" name="create_pdf" class="btn btn-success" value="Generar PDF">
+                </form>
+              </div>
       <table class="table table-hover" style="text-align:center;">
         <thead>
           <tr>
@@ -119,12 +146,16 @@ if(isset($_POST['create_pdf'])){
             <th><center>Siap</center></th>
             <th><center>Usuario</center></th>
             <th><center>Clave</center></th>
-            <th><center>Observacion</center></th>
+            <th><center>Clave ROOT</center></th>
           </tr>
         </thead>
         <tbody>
         <?php 
-      while ($user=$usuarios->fetch_assoc()) {   ?>
+      $consultar= new pdf();
+      $filas = $consultar->cargarequipos();
+       if (isset($filas)) {
+       
+     foreach ($filas as $user) {    ?>
           <tr class="">
             
             <td WIDTH="5"><?php echo $user['ip']; ?></td>
@@ -137,19 +168,13 @@ if(isset($_POST['create_pdf'])){
             <td><?php echo $user['observacion']; ?></td>
             
           </tr>
-         <?php } ?>
+         <?php } }?>
         </tbody>
       </table>
 
       
     
-              <div class="col-md-12">
-                <form method="post">
-                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
-                  <a href="../vista/verips.php" class="btn btn-danger pull-left" > Volver</a>
-                  <input type="submit" name="create_pdf" class="btn btn-danger pull-right" value="Generar PDF">
-                </form>
-              </div>
+
         </div>
     </div>
 

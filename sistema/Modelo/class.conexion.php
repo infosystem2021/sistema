@@ -3,11 +3,10 @@
 class Conexion{
 
 	public function get_conexion(){
-
 		$user="root";
-		$pass="nuevavictoria";
+		$pass="";
 		$host="localhost";
-		$db="sistema";
+		$db="sistema2";
 		$conexion= new pdo("mysql:host=$host;dbname=$db;",$user,$pass);
 
        return $conexion;

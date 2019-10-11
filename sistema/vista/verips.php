@@ -1,103 +1,81 @@
 <?php
-
-session_start();
-if (!$_SESSION["user"]) {
-	header("location:../index.php");
-}
-?>
-	
+	session_start();
+	if (!$_SESSION['users']) {
+		header("Location:../index.html");
+  }
+  ?>
 <?php
-
 require_once("../Modelo/class.conexion.php");
 require_once("../Modelo/class.consultar.php");
 require_once("../Controlador/cargarips.php");
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	  <meta charset="utf-8">
-   <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="../bootstrap/js/jquery-1.8.3.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
-
-
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-  <title>informatica</title>
-</head>
-<body style="background-color:#FFF">
-
-  <div class="container">
-
-		 <header class="header">
-           
-              <?php
-                     include("../include/cabecera.php");
-                 ?>
-          
-      </header>
-
-       <?php
-//  include("../include/carrusel.php");
-              ?>
-
-              <?php
-                        include("../include/menu5.php");
-                    ?>
-                    
-<br><br> <h1>IP REGISTRADAS</h1> 
-
-	<div>
-
-		<form method="get">
-           
-           <input type="text" name="buscar" pattern="[0-9_.]{1,13}"  placeholder="INGRESE LA IP:">
-           <input class="btn btn-danger" type="submit" value="BUSCAR">
-           <a class="btn btn-info" href="verips.php">TODAS</a>
-    </form>
-    <form method="get">
-                      <select name="siap">
-                          <option value="si" ><b>SISTEMA OPENSIAP:</b></option>
-                          <option>si</option>
-                          <option>no</option>
-                       </select>
-           <input class="btn btn-danger" type="submit" value="BUSCAR">
-           <a class="btn btn-info" href="verips.php">TODAS</a>
-
-    </form>
-		
-	</div>
-
-    <div>
-<a class="btn btn-success" href="../pdf/consultaips.php">generar reporte</a>
-
-</div>
-<br>
-
-	<?php
-
-	if (isset($_GET['buscar'])) {
-	    buscar($_GET['buscar']);
-	}elseif(isset($_GET['siap'])){
-
-		siap($_GET['siap']);
-	}
-  else{
-
-cargar();
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../estilo.css">
+    <link rel="stylesheet" type="text/css" href="../estilos2.css">
+<style type="text/css">
+  .boton_personalizado{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
   }
-	
-	?>
+  .boton_personalizado:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+  }
+</style>
+    <title>INFORMATICA</title>
+</head>
+<body>
+      <div class="contenedor">
+
+        <header class="header">
+                                   <?php
+                                         include("../include/menu5.php");
+                                      ?>
+                <a href="#" class="imagen">
+                      <IMG src="../images/alcaldia1.png" width="130" height="76"  />
+                </a>
+                <h1 class="hidden-xs">JEFATURA DE INFORMATICA</h1>
+
+        </header>
+
+
+      <main class="contenido">
+      
 
 
 
+    <iframe src="./ips.php" name="iframe_a" width="100%" height="600"></iframe>
+  
 
+
+      </main>
+     <!-- <aside class="sidebar">
+      <IMG src="../images/escudo.png" width="130" height="76"  />
+      </aside>-->
+      <div class="wridget-1">
+      <h3 style="text-align:center">GNU</h3>
+      </div>
+      <div class="wridget-2">
+      <h3 style="text-align:center">LINUX</h3>
+      </div>
+    <footer  class="footer">
+    <p style="color: red">&copy; Copyright INFOSYSTEM  <IMG src="../images/escudo.png" width="130" height="76" align="right" /> <br/><br/></p>
+    </footer>
 </div>
+<script src="reloj.js"></script>
 </body>
 </html>

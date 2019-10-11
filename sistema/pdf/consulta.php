@@ -1,7 +1,23 @@
 <?php 
-	require_once('conexion/conexion.php');	
-	$usuario = 'SELECT * FROM equipos ORDER BY codigo ASC';	
-	$usuarios=$mysqli->query($usuario);
+  require_once('../Modelo/class.conexion.php');	
+  class pdf{
+  public function cargarEquipos(){
+  	$rows=null;
+  	$modelo = new Conexion();
+  	$conexion=$modelo->get_conexion();
+  	$sql="select * from equipos";
+  	$statement=$conexion->prepare($sql);
+  	$statement->execute();
+  	while ($result=$statement->fetch()) {
+  		
+  		$rows[]=$result;
+  	}
+
+  	return $rows;
+  }
+}
+
+ //	$usuarios=$mysqli->query($usuario);
 	
 if(isset($_POST['create_pdf'])){
 	require_once('tcpdf/tcpdf.php');
@@ -9,7 +25,7 @@ if(isset($_POST['create_pdf'])){
 	$pdf = new TCPDF('P', 'mm', 'LETTER', true, 'UTF-8', false);
 	
 	$pdf->SetCreator(PDF_CREATOR);
-	$pdf->SetAuthor('Miguel Caro');
+	$pdf->SetAuthor('Cesar Ratia');
 	$pdf->SetTitle($_POST['reporte_name']);
 	
 	$pdf->setPrintHeader(true); 
@@ -17,7 +33,13 @@ if(isset($_POST['create_pdf'])){
 	$pdf->SetMargins(5, 5, 5, false); 
 	$pdf->SetAutoPageBreak(true, 20); 
 	$pdf->SetFont('Helvetica', '', 10);
-	$pdf->addPage('L');
+  $pdf->addPage('L');
+  
+  $consultar= new pdf();
+  $filas = $consultar->cargarEquipos();
+  
+  if (isset($filas)) {
+   
 
 	$content = '';
 
@@ -50,7 +72,8 @@ if(isset($_POST['create_pdf'])){
   ';
   
   
-  while ($user=$usuarios->fetch_assoc()) { 
+  foreach ($filas as $user) { 
+   //print_r($user ); 
   $content .= '
     <tr bgcolor="">
            
@@ -74,17 +97,12 @@ if(isset($_POST['create_pdf'])){
   }
   
   $content .= '</table>';
-  
- 
 
-
-	
-	
-	
 	$pdf->writeHTML($content, true, 0, true, 0);
 
 	$pdf->lastPage();
-	$pdf->output('Reporte.pdf', 'I');
+  $pdf->output('ReporteEquipos.pdf', 'I');
+}
 }
 
 ?>
@@ -107,71 +125,40 @@ if(isset($_POST['create_pdf'])){
 </head>
 
 <body>
-	<div class="container-fluid">
-        <div class="row padding">
-        	<div class="col-md-12">
-             <header><img src="alcaldia.png" width="900" height="80" alt="" ></header>
+             <header><img src="alcaldia.png" width="630" height="80" alt="" ></header>
             	<?php $h1 = "Datos de los equipos en pdf";  
-            	 echo '<h1>'.$h1.'</h1>'
+            	 echo '<h1 style="text-align:left">'.$h1.'</h1>'
 				?>
-            </div>
-
-              <div class="row">
-
-      <table class="table table-hover" style="text-align:center;">
+                <form method="post">
+                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
+                  <a href="../vista/equipos.php" class="btn btn-danger " > Volver</a>
+                  <input type="submit" name="create_pdf" class="btn btn-success" value="Generar PDF">
+                </form>
+                <br>
+      <table width="630" border="2"  style="text-align:center;">
         <thead>
           <tr>
-           
-            <th WIDTH="5"><center>Codigo</center></th>
             <th><center>Departamento</center></th>
-            <th><center>Tipo</center></th>
-            <th><center>Sistema</center></th>
-            <th><center>Siap</center></th>
-            <th><center>Falla</center></th>
-            <th><center>Traido por</center></th>
-            <th><center>Recibido</center></th>
-            <th><center>Reparado</center></th>
-            <th><center>Entredado por</center></th>
             <th><center>Fecha Entrada</center></th>
             <th><center>Fecha Salida</center></th>
-            <th><center>Observacion</center></th>
           </tr>
         </thead>
         <tbody>
         <?php 
-      while ($user=$usuarios->fetch_assoc()) {   ?>
-          <tr class="">
-            
-            <td WIDTH="5"><?php echo $user['codigo']; ?></td>
+        $consultar= new pdf();
+        $filas = $consultar->cargarEquipos();
+         if (isset($filas)) {
+         
+       foreach ($filas as $user) {   ?>
+       
+          <tr >
             <td><?php echo $user['departamento']; ?></td>
-            <td><?php echo $user['tipo']; ?></td>
-            <td><?php echo $user['sistema']; ?></td>
-            <td><?php echo $user['siap']; ?></td>
-            <td><?php echo $user['falla']; ?></td>
-            <td><?php echo $user['traido']; ?></td>
-            <td><?php echo $user['recibido']; ?></td>
-            <td><?php echo $user['reparado']; ?></td>
-            <td><?php echo $user['entregado']; ?></td>
             <td><?php echo $user['entrada']; ?></td>
             <td><?php echo $user['salida']; ?></td>
-            <td><?php echo $user['observacion']; ?></td>
             
           </tr>
-         <?php } ?>
+         <?php  } }?>
         </tbody>
       </table>
-
-      
-    
-              <div class="col-md-12">
-                <form method="post">
-                  <input type="hidden" name="reporte_name" value="<?php echo $h1; ?>">
-                  <a href="../vista/verequipos.php" class="btn btn-danger pull-left" > Volver</a>
-                  <input type="submit" name="create_pdf" class="btn btn-danger pull-right" value="Generar PDF">
-                </form>
-              </div>
-        </div>
-    </div>
-
 </body>
 </html>
